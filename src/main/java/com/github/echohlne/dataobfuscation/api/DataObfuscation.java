@@ -39,18 +39,6 @@ public final class DataObfuscation {
                 for (Field field : fieldList) {
                     dealWithCustomAnnotation(field, dst, null, null);
                 }
-            } else if (ClassesUtils.isCollection(dstClass)) {
-                final Collection<Object> entryCollection = (Collection<Object>) dst;
-                if (ClassesUtils.isCollectionNotEmpty(entryCollection)) {
-                    Object firstCollectionEntry = entryCollection.iterator().next();
-                    Class collectionEntryClass = firstCollectionEntry.getClass();
-
-                    if (ClassesUtils.isClassTypeShouldProcessAgain(collectionEntryClass)) {
-                        for (Object collectionEntry : entryCollection) {
-                            obfuscateByClassType(collectionEntry);
-                        }
-                    }
-                }
             } else if (ClassesUtils.isArray(dst)) {
                 Object[] arrays = (Object[]) dst;
                 if (ClassesUtils.isArrayNotEmpty(arrays)) {
@@ -63,10 +51,20 @@ public final class DataObfuscation {
                         }
                     }
                 }
+            } else if (ClassesUtils.isCollection(dstClass)) {
+                final Collection<Object> entryCollection = (Collection<Object>) dst;
+                if (ClassesUtils.isCollectionNotEmpty(entryCollection)) {
+                    Object firstCollectionEntry = entryCollection.iterator().next();
+                    Class collectionEntryClass = firstCollectionEntry.getClass();
+
+                    if (ClassesUtils.isClassTypeShouldProcessAgain(collectionEntryClass)) {
+                        for (Object collectionEntry : entryCollection) {
+                            obfuscateByClassType(collectionEntry);
+                        }
+                    }
+                }
             }
         }
-
-
     }
 
     private static void obfuscateByClassType(Object dst, Rule parentRule, Strategy parentMask) {

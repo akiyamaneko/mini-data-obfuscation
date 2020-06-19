@@ -10,7 +10,7 @@ public class BasicUserInfo {
     @Strategy(type = IDCardStrategy.class)
     private String idCard;
 
-    @Strategy(type = ChineseNameStrategy.class)
+    @Strategy(type = NameStrategy.class)
     private String name;
 
     @Strategy(type = EmailStrategy.class)
@@ -22,7 +22,7 @@ public class BasicUserInfo {
     @Strategy(type = BankCardStrategy.class)
     private String bankCard;
 
-    @Strategy(type = ChineseNameStrategy.class)
+    @Strategy(type = NameStrategy.class)
     private List<String> schoolList;
 
     public List<String> getSchoolList() {

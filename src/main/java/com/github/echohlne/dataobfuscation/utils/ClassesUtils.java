@@ -29,15 +29,6 @@ public final class ClassesUtils {
     }
 
     @SuppressWarnings({"rawtypes"})
-    private static boolean shouldHandleAgain(final Class fieldTypeClass) {
-        if(ClassUtils.isPrimitiveOrWrapper(fieldTypeClass) || ClassUtils.isAssignable(fieldTypeClass, Map.class)) {
-            return false;
-        }
-        return isJavaBean(fieldTypeClass) ||  ClassUtils.isAssignable(fieldTypeClass, Array.class) ||
-                ClassUtils.isAssignable(fieldTypeClass, Collection.class);
-    }
-//
-//    @SuppressWarnings({"rawtypes"})
     public static boolean isClassTypeShouldProcessAgain(final Class fieldTypeClass) {
         if(ClassUtils.isPrimitiveOrWrapper(fieldTypeClass) || ClassUtils.isAssignable(fieldTypeClass, Map.class) || ClassUtils.isAssignable(fieldTypeClass, String.class)) {
             return false;
@@ -45,31 +36,6 @@ public final class ClassesUtils {
         return isJavaBean(fieldTypeClass) ||  ClassUtils.isAssignable(fieldTypeClass, Array.class) ||
                 ClassUtils.isAssignable(fieldTypeClass, Collection.class);
     }
-
-    /**
-     * 常见的基础对象类型
-     */
-    private static final Class[] BASE_TYPE_CLASS = new Class[]{
-            String.class, Boolean.class, Character.class, Byte.class, Short.class,
-            Integer.class, Long.class, Float.class, Double.class, Void.class, Object.class, Class.class
-    };
-
-    public static boolean isBase(Class<?> clazz) {
-        if (clazz.isPrimitive()) {
-            return true;
-        }
-        for (Class baseClazz : BASE_TYPE_CLASS) {
-            if (baseClazz.equals(clazz)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    public static boolean isMap(final Class<?> clazz) {
-        return Map.class.isAssignableFrom(clazz);
-    }
-
-
 
     public static boolean isPrimitiveType(Field field) {
         return ClassUtils.isPrimitiveOrWrapper(field.getType());

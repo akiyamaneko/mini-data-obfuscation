@@ -3,6 +3,7 @@ package com.github.echohlne.dataobfuscation.utils;
 
 
 import com.github.echohlne.dataobfuscation.exception.CopyException;
+import org.apache.commons.lang3.ClassUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -24,7 +25,7 @@ public final class CloneUtils {
         Supplier<Stream<T>> streamSupplier = () -> (Stream<T>) deepCopyObjectSet.stream();
         boolean copyObject = false;
 
-        if (isNull(original)) {
+        if (ClassesUtils.isNull(original)) {
             throw new CopyException("Original object must be not null for Deep Copy");
         }
 
